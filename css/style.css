@@ -1,0 +1,157 @@
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  margin: 0;
+  color: #222;
+  line-height: 1.6;
+  background: url('../img/puma\ empresa.jpg') no-repeat center center fixed; 
+  background-size: cover;
+}
+
+/* ---------- Barra superior ---------- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1rem 2rem;
+  background: #c01515; /* Rojo Puma */
+  color: #fff;
+  border-bottom: 4px solid #056626; /* Verde Puma */
+}
+.topbar img {
+  height: 100px;
+  margin-right: 1rem;
+}
+.brand-title {
+  text-align: center;
+  flex-grow: 1;
+}
+.brand-title h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+.brand-title p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #f1f1f1;
+}
+
+/* ---------- Barra de navegación (Botones 3D) ---------- */
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1rem;
+  background: rgba(255,255,255,0.9);
+}
+.nav-btn {
+  background: #056626; /* Verde Puma */
+  border: none;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 4px #034d1c;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.nav-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px #034d1c;
+}
+.nav-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px #034d1c;
+}
+.nav-btn.solid {
+  background: #c01515; /* Botón rojo especial */
+  box-shadow: 0 4px #8e0e0e;
+}
+
+/* Cuadro transparente para texto */
+.text-box {
+  background: rgba(255, 255, 255, 0.85); /* Blanco semi-transparente */
+  color: #111; /* Texto oscuro para contraste */
+  padding: 1.5rem;
+  border-radius: 12px;
+  max-width: 900px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Centrar números en la tabla de riesgos */
+#riskTable td:nth-child(4),
+#riskTable td:nth-child(5),
+#riskTable td:nth-child(7) {
+  text-align: center;
+}
+
+/* Bordes y centrado en la tabla de riesgos */
+#riskTable {
+  border-collapse: collapse; /* Evita doble borde */
+  width: 100%;
+}
+
+#riskTable th,
+#riskTable td {
+  border: 1px solid #ccc; /* Borde gris claro */
+  padding: 8px; /* Espaciado interno */
+}
+
+#riskTable th {
+  background-color: #1a1a1a; /* Puedes usar tu color de encabezado */
+  color: #fff;
+  text-align: center; /* Centrar encabezado */
+}
+
+/* Centrar números en columnas específicas */
+#riskTable td:nth-child(4),
+#riskTable td:nth-child(5),
+#riskTable td:nth-child(7) {
+  text-align: center;
+}
+
+#riskTable {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed; /* Hace que todas las columnas respeten su ancho */
+}
+
+#riskTable th,
+#riskTable td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  word-wrap: break-word; /* Ajusta palabras largas a la siguiente línea */
+  word-break: break-word;
+}
+
+#riskTable th {
+  background-color: #1a1a1a;
+  color: #fff;
+  text-align: center;
+}
+
+/* Columnas específicas centradas */
+#riskTable td:nth-child(4),
+#riskTable td:nth-child(5),
+#riskTable td:nth-child(6) {
+  text-align: center;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  margin-top: 30px;
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente */
+  color: #fff;
+  font-size: 14px;
+  position: relative; /* Mantiene el footer al final del contenido */
+}
+
+#activos-riesgos table td {
+  font-size: 10px; /* más pequeño solo en celdas blancas */
+}
+
+#activos-riesgos table th {
+  font-size: 10px; /* mantiene los títulos un poco más grandes */
+}

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SGSI - Gasolinera Puma</title>
+  <meta name="description" content="Plan de Tratamiento de Ciberseguridad (SGSI) para Gasolinera Puma" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* Bordes y centrado en la tabla de riesgos */
+    #riskTable {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    #riskTable th,
+    #riskTable td {
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
+    #riskTable th {
+      background-color: #1a1a1a;
+      color: #fff;
+      text-align: center;
+    }
+    /* Centrar números en columnas Impacto, Probabilidad, Riesgo */
+    #riskTable td:nth-child(4),
+    #riskTable td:nth-child(5),
+    #riskTable td:nth-child(6) {
+      text-align: center;
+    }
+    /* SPA: ocultar secciones por defecto */
+    .section { display: none; }
+    .section.show { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- Barra superior -->
+<header class="topbar">
+  <div class="brand">
+    <img src="assets/img/puma logo.jpg" alt="Logo Gasolinera Puma">
+  </div>
+  <div class="brand-title">
+    <h1>CSIRT Puma </h1>
+    <p>(Computer Security Incident Response Team Puma)</p>
+  </div>
+</header>
+
+<!-- Barra de navegación -->
+<nav class="nav">
+  <button class="nav-btn" data-target="#inicio">Inicio</button>
+  <button class="nav-btn" data-target="#activos">Activos & Riesgos</button>
+  <button class="nav-btn" data-target="#objetivos">Objetivos</button>
+  <button class="nav-btn" data-target="#estrategia">Estrategia & Controles</button>
+  <button class="nav-btn" data-target="#organizacion">Organización</button>
+  <button class="nav-btn" data-target="#respuesta-incidentes">Respuesta a incidentes</button>
+  <button class="nav-btn" data-target="#mejora">Evaluación & Mejora</button>
+  <button id="printBtn" class="nav-btn solid">Exportar a PDF</button>
+</nav>
+
+<main>
+  <!-- INICIO -->
+  <section id="inicio" class="section show">
+    <div class="text-box">
+      <h2>Resumen ejecutivo</h2>
+      <p>
+       El presente proyecto desarrolla un Plan de Tratamiento de Ciberseguridad para la Gasolinera Puma, con el objetivo de garantizar la protección de sus sistemas tecnológicos y activos críticos. El plan se fundamenta en normas internacionales como ISO/IEC 27001 e ISO/IEC 27005, lo que asegura un enfoque integral en la gestión de riesgos y en la continuidad del negocio.
+
+      Se realizó un análisis de vulnerabilidades y amenazas en los sistemas de logística, atención digital al cliente y monitoreo de seguridad, identificando riesgos como errores de programación, inyecciones SQL, contraseñas débiles y sabotajes. A partir de esta evaluación se establecieron medidas correctivas y controles estratégicos.
+        <br>
+      Asimismo, se conformó un equipo de ciberseguridad especializado (CSIRT) con funciones claramente definidas para la detección, gestión y respuesta ante incidentes, garantizando una reacción rápida y coordinada.
+
+    Finalmente, este plan busca no solo fortalecer la seguridad de la información, sino también impulsar una cultura de mejora continua que permita a la organización adaptarse a los nuevos desafíos tecnológicos y de seguridad.
+      </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTIVOS & RIESGOS -->
+  <section id="activos" class="section">
+    <div class="text-box">
+      <h2>Activos y Evaluación de Riesgos</h2>
+      <div class="table-wrapper">
+        <table id="riskTable">
+          <thead>
+            <tr>
+              <th>Activo</th>
+              <th>Vulnerabilidades</th>
+              <th>Amenazas</th>
+              <th>Impacto (1-5)</th>
+              <th>Probabilidad (1-5)</th>
+              <th>Riesgo (Impacto × Prob.)</th>
+              <th>Controles / Medidas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>POS (Punto de venta)</td>
+              <td>SO desactualizado; macros/USB; correos maliciosos</td>
+              <td>Malware/Ransomware</td>
+              <td>5</td>
+              <td>3</td>
+              <td><span class="chip risk-high">15 (Alto)</span></td>
+              <td>EDR, segmentación, bloqueo USB, filtrado de correo, backups verificados</td>
+            </tr>
+            <tr>
+              <td>Controlador de surtidores (OT)</td>
+              <td>Credenciales débiles; acceso remoto sin MFA; red plana</td>
+              <td>Acceso no autorizado/Manipulación</td>
+              <td>5</td>
+              <td>2</td>
+              <td><span class="chip risk-med">10 (Medio)</span></td>
+              <td>VLAN separada, VPN + MFA, listas de control de acceso, registros y alertas</td>
+            </tr>
+            <tr>
+              <td>Red Wi-Fi clientes</td>
+              <td>Aislamiento insuficiente; cifrado débil</td>
+              <td>Salto lateral a red interna</td>
+              <td>3</td>
+              <td>4</td>
+              <td><span class="chip risk-med">12 (Medio)</span></td>
+              <td>SSID separado/guest, portal cautivo, WPA3, firewall entre VLANs</td>
+            </tr>
+            <tr>
+              <td>CCTV/DVR</td>
+              <td>Contraseñas por defecto; puertos expuestos</td>
+              <td>Compromiso remoto/Fuga de video</td>
+              <td>3</td>
+              <td>3</td>
+              <td><span class="chip risk-med">9 (Medio)</span></td>
+              <td>Cambiar credenciales, VPN, cerrar puertos, actualizaciones de firmware</td>
+            </tr>
+            <tr>
+              <td>Servidor/PC de facturación</td>
+              <td>Backups no probados; parches pendientes</td>
+              <td>Pérdida/alteración de datos</td>
+              <td>5</td>
+              <td>2</td>
+              <td><span class="chip risk-high">10 (Alto)</span></td>
+              <td>Backups 3-2-1, pruebas trimestrales de restauración, parches y hardening</td>
+            </tr>
+            <tr>
+              <td>Datos personales (clientes/empleados)</td>
+              <td>Exceso de privilegios; cifrado inexistente</td>
+              <td>Fuga de información</td>
+              <td>4</td>
+              <td>3</td>
+              <td><span class="chip risk-high">12 (Alto)</span></td>
+              <td>Mínimos privilegios, cifrado, registro de accesos, DLP básico</td>
+            </tr>
+
+            <!-- ACTIVOS DIGITALES CRÍTICOS ADICIONALES -->
+            <tr>
+              <td>Plataforma de gestión de estaciones (ERP/CRM)</td>
+              <td>Fallas de autenticación; privilegios excesivos</td>
+              <td>Acceso no autorizado; fuga de información</td>
+              <td>5</td>
+              <td>3</td>
+              <td><span class="chip risk-high">15 (Alto)</span></td>
+              <td>Control de accesos, auditoría, backups, MFA</td>
+            </tr>
+            <tr>
+              <td>Infraestructura de redes y comunicación</td>
+              <td>Firewall mal configurado; VPN vulnerable</td>
+              <td>Intercepción de datos; ataques externos</td>
+              <td>4</td>
+              <td>3</td>
+              <td><span class="chip risk-high">12 (Alto)</span></td>
+              <td>Segmentación de red, IDS/IPS, monitoreo de tráfico</td>
+            </tr>
+            <tr>
+              <td>Bases de datos corporativas</td>
+              <td>Falta de cifrado; accesos sin control</td>
+              <td>Fuga de información; corrupción de datos</td>
+              <td>5</td>
+              <td>3</td>
+              <td><span class="chip risk-high">15 (Alto)</span></td>
+              <td>Cifrado, control de accesos, backups regulares, auditoría</td>
+            </tr>
+            <tr>
+              <td>Sistemas de gestión de logística y suministro</td>
+              <td>Errores de programación; falta de control de accesos</td>
+              <td>Sabotaje; interrupción de suministro</td>
+              <td>4</td>
+              <td>2</td>
+              <td><span class="chip risk-med">8 (Medio)</span></td>
+              <td>Controles de acceso, validación de datos, alertas de inconsistencias</td>
+            </tr>
+            <tr>
+              <td>Canales digitales de atención al cliente (web/app)</td>
+              <td>Vulnerabilidades web; inyecciones SQL</td>
+              <td>Robo de datos de clientes; phishing</td>
+              <td>4</td>
+              <td>3</td>
+              <td><span class="chip risk-high">12 (Alto)</span></td>
+              <td>Validación de inputs, cifrado de datos, monitoreo de accesos</td>
+            </tr>
+            <tr>
+              <td>Sistemas de monitoreo de seguridad</td>
+              <td>Contraseñas por defecto; software sin actualizar</td>
+              <td>Acceso no autorizado; sabotaje físico/digital</td>
+              <td>3</td>
+              <td>3</td>
+              <td><span class="chip risk-med">9 (Medio)</span></td>
+              <td>Cambiar credenciales, actualizar firmware, registro de accesos</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Otras secciones (objetivos, estrategia, organización, incidentes, mejora) -->
+  <section id="objetivos" class="section">
+  <div class="text-box">
+    <h2>Objetivos del SGSI - Gasolinera Puma</h2>
+    <ul>
+      <li><strong>Identificación de los activos que se deben proteger:</strong> 
+        <br>
+        Se han identificado todos los activos críticos de la gasolinera, incluyendo:
+        <ul>
+          <br>
+          <li>POS (Puntos de venta)</li>
+          <li>Controladores de surtidores (OT)</li>
+          <li>Red Wi-Fi de clientes</li>
+          <li>CCTV / DVR</li>
+          <li>Servidor / PC de facturación</li>
+          <li>Datos personales de clientes y empleados</li>
+          <li>Plataforma de gestión corporativa (ERP/CRM)</li>
+          <li>Infraestructura de redes y comunicación</li>
+          <li>Bases de datos corporativas</li>
+          <li>Sistemas de logística y suministro</li>
+          <li>Canales digitales de atención al cliente (web/app)</li>
+          <li>Sistemas de monitoreo de seguridad</li>
+        </ul>
+        <br>
+        Estos activos han sido priorizados según su impacto y criticidad para la operación de la empresa.
+      </li>
+      <br>
+      <li><strong>Determinación de los niveles aceptables de riesgo:</strong> 
+        <br>
+        Para cada activo se han establecido niveles de riesgo basados en la probabilidad de ocurrencia y el impacto potencial:
+        <ul>
+          <br>
+          <li>Riesgo Crítico: requiere acción inmediata y controles estrictos.</li>
+          <li>Riesgo Alto: se implementarán medidas de mitigación prioritarias.</li>
+          <li>Riesgo Medio: controles preventivos y monitoreo regular.</li>
+          <li>Riesgo Bajo: se mantienen controles básicos y revisiones periódicas.</li>
+        </ul>
+        <br>
+        Esto permite que la gasolinera mantenga un nivel de seguridad aceptable según sus recursos y prioridades operativas.
+      </li>
+    </ul>
+  </div>
+</section>
+
+
+ <section id="estrategia" class="section">
+  <div class="text-box">
+    <h2>Estrategia & Controles Innovadores - Gasolinera Puma</h2>
+    <ul>
+      <li><strong>Enfoque basado en inteligencia de amenazas:</strong>  
+        <br>
+        No solo se aplican controles, sino que se monitorean patrones globales de ciberataques para anticipar amenazas antes de que lleguen a la gasolinera.  
+        Ejemplos:
+        <ul>
+          <br>
+          <li>Integración de feeds de inteligencia de amenazas en tiempo real.</li>
+          <li>Alertas automatizadas basadas en anomalías de comportamiento en los POS y controladores de surtidores.</li>
+        </ul>
+        <br>
+      </li>
+      <li><strong>Seguridad adaptativa y segmentación dinámica:</strong>  
+        En lugar de solo usar firewalls estáticos, se aplican políticas que se ajustan según la actividad y el riesgo detectado:
+        <ul>
+          <br>
+          <li>Redes segmentadas que se reconfiguran automáticamente cuando se detecta tráfico sospechoso.</li>
+          <li>Controladores de surtidores y sistemas críticos aislados dinámicamente ante intentos de intrusión.</li>
+        </ul>
+        <br>
+      </li>
+      <li><strong>Protección de activos digitales con blockchain y trazabilidad:</strong>  
+        Para garantizar la integridad de las transacciones, datos y registros de clientes:
+        <ul>
+          <br>
+          <li>Registro inmutable de transacciones de POS en un sistema de trazabilidad interno.</li>
+          <li>Verificación de cambios críticos en bases de datos mediante hashes criptográficos.</li>
+        </ul>
+        <br>
+      </li>
+      <li><strong>Automatización inteligente y aprendizaje de anomalías:</strong>  
+        Se usan algoritmos de machine learning para detectar patrones inusuales:
+        <ul>
+          <br>
+          <li>Identificación de accesos sospechosos o fraude en tiempo real.</li>
+          <li>Alertas preventivas sobre posibles sabotajes en surtidores o infraestructura crítica.</li>
+        </ul>
+        <br>
+      </li>
+      <li><strong>Cultura de ciberseguridad y gamificación:</strong>  
+        Los empleados no solo siguen políticas, sino que participan activamente en la protección de la empresa:
+        <ul>
+          <br>
+          <li>Simulaciones de ataques y retos de seguridad gamificados.</li>
+          <li>Reconocimiento y recompensas a quienes detecten vulnerabilidades o reporten incidentes.</li>
+        </ul>
+        <br>
+      </li>
+    </ul>
+  </div>
+</section>
+
+  <section id="organizacion" class="section">
+  <div class="text-box">
+    <h2>Organización de Ciberseguridad - Gasolinera Puma</h2>
+    <ul>
+      <li><strong>Designación del equipo de ciberseguridad:</strong>  
+        <br>
+        Se conforma un equipo dedicado al SGSI con perfiles especializados:
+        <ul>
+          <br>
+          <li><strong>Jefe de Ciberseguridad (1):</strong> Ingeniero en Sistemas con experiencia en seguridad de infraestructura y gestión de incidentes.</li>
+          <li><strong>Analista de Seguridad (1):</strong> Especialista en monitoreo de redes, detección de intrusiones y análisis de vulnerabilidades.</li>
+          <li><strong>Especialista en Seguridad OT (1):</strong> Experto en controladores de surtidores y sistemas críticos industriales.</li>
+          <li><strong>Administrador de Sistemas y Datos (1):</strong> Encargado de backups, cifrado de datos y protección de bases de datos corporativas.</li>
+        </ul>
+        <br>
+        Total: <strong>4 personas</strong> con perfiles complementarios para cubrir todas las áreas críticas de la gasolinera.
+      </li>
+      <br>
+      <li><strong>Definición de roles y responsabilidades en caso de incidentes:</strong>
+        <ul>
+         <br>
+          <li><strong>Jefe de Ciberseguridad:</strong> Coordinación general, toma de decisiones y reporte a la gerencia.</li>
+          <li><strong>Analistas de Seguridad:</strong> Identificación, contención y remediación de incidentes en sistemas IT y OT.</li>
+          <li><strong>Especialista en Seguridad OT:</strong> Aislamiento de controladores y mitigación de riesgos físicos y digitales en la operación de surtidores.</li>
+          <li><strong>Administrador de Sistemas y Datos:</strong> Recuperación de información, restauración de backups y verificación de integridad de datos.</li>
+        </ul>
+        <br>
+      </li>
+      <li><strong>Establecimiento de canales de comunicación interna:</strong>
+        <ul>
+          <br>
+          <li>Canal de alertas instantáneas mediante mensajería interna segura (chat corporativo cifrado).</li>
+          <li>Correo electrónico dedicado para reportes de incidentes con prioridad alta.</li>
+          <li>Reuniones de coordinación quincenales para revisión de riesgos y seguimiento de medidas preventivas.</li>
+          <li>Registro centralizado de incidentes para mantener trazabilidad y lecciones aprendidas.</li>
+        </ul>
+      </li>
+    </ul>x
+  </div>
+</section>
+
+
+<section id="respuesta-incidentes" class="section">
+  <div class="text-box">
+    <h2>Gestión de Incidentes - Gasolinera Puma</h2>
+    <ul>
+      <li><strong>Definición de los pasos a seguir en caso de un ataque cibernético:</strong>
+        <ul>
+          <li><strong>Detección:</strong> Identificación inmediata del incidente mediante alertas automatizadas, monitoreo de logs y reportes internos.</li>
+          <li><strong>Notificación:</strong> Comunicación inmediata al Jefe de Ciberseguridad y al equipo de respuesta a incidentes a través de canales internos seguros.</li>
+          <li><strong>Contención:</strong> Aislamiento de sistemas afectados (POS, controladores de surtidores, servidores) para evitar propagación del ataque.</li>
+          <li><strong>Erradicación:</strong> Eliminación de malware, bloqueo de accesos no autorizados y restauración de sistemas críticos.</li>
+          <li><strong>Recuperación:</strong> Restauración de datos desde backups verificados y reactivación controlada de los sistemas.</li>
+          <li><strong>Lecciones aprendidas:</strong> Documentación del incidente, análisis de causas y actualización de políticas y controles para prevenir recurrencias.</li>
+        </ul>
+        <br>
+      </li>
+      <li><strong>Entrenamiento y simulacros periódicos para el equipo de respuesta a incidentes:</strong>
+        <ul>
+          <li>Simulacros trimestrales de ataques cibernéticos que incluyen escenarios de ransomware, intrusiones en la red y manipulación de OT.</li>
+          <li>Capacitación en línea y presencial sobre nuevas amenazas y técnicas de mitigación, usando plataformas interactivas y laboratorios virtuales.</li>
+          <li>Evaluación de desempeño del equipo durante los simulacros, con retroalimentación y mejoras continuas.</li>
+          <li>Desarrollo de manuales internos y guías rápidas para actuación inmediata ante incidentes reales.</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</section>
+
+
+
+ <section id="mejora" class="section">
+  <div class="text-box">
+    <h2>Evaluación & Mejora Continua - Gasolinera Puma</h2>
+    <ul>
+      <li><strong>Programación de auditorías regulares de seguridad:</strong>  
+        <br>
+        Se realizan auditorías internas y externas periódicas para evaluar el cumplimiento de las políticas y controles implementados:
+        <ul>
+          <li>Auditorías trimestrales de infraestructura IT y OT.</li>
+          <li>Revisión de accesos, configuraciones de red y sistemas críticos.</li>
+          <li>Verificación de backups y procedimientos de recuperación.</li>
+        </ul>
+        <br>
+      </li>
+      <li><strong>Análisis de incidentes pasados para mejorar los procesos:</strong>  
+        <br>
+        Cada incidente se documenta y analiza para identificar causas, impactos y lecciones aprendidas:
+        <ul>
+          <li>Se realizan informes detallados de cada incidente, incluyendo tiempo de respuesta y eficacia de los controles.</li>
+          <li>Se actualizan procedimientos internos y protocolos de respuesta según las lecciones aprendidas.</li>
+        </ul>
+        <br>
+      </li>
+      <li><strong>Ajuste constante de la estrategia de ciberseguridad:</strong>  
+        <br>
+        La estrategia se revisa y adapta continuamente en función de nuevas amenazas, tecnologías y mejores prácticas:
+        <ul>
+          <li>Monitoreo de tendencias globales en ciberseguridad y ataques emergentes.</li>
+          <li>Implementación de controles innovadores según el nivel de riesgo y criticidad de los activos.</li>
+          <li>Retroalimentación continua del equipo de ciberseguridad y usuarios clave.</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<script>
+  // SPA navigation
+  const buttons = document.querySelectorAll('.nav-btn[data-target]');
+  const sections = document.querySelectorAll('.section');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-target');
+
+      // Oculta todas las secciones
+      sections.forEach(s => s.classList.remove('show'));
+
+      // Muestra la sección seleccionada
+      document.querySelector(target).classList.add('show');
+
+      // Subir al inicio suavemente
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Botón imprimir
+  document.getElementById('printBtn').addEventListener('click', () => window.print());
+</script>
+
+<!-- Footer -->
+<footer>
+  <p>© 2025 SGSI — Gasolinera Puma.</p>
+</footer>
+
+</body>
+</html>
